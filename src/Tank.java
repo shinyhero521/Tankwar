@@ -2,21 +2,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-//ÃæÏò¶ÔÏóµÄË¼Î¬
+//é¢å‘å¯¹è±¡çš„æ€ç»´
 public class Tank {
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
 	private int x, y;
 	private boolean bL = false, bR = false, bU = false, bD = false;
 
-	// Ã¶¾Ù·½ÏòĞ´·¨
+	// æšä¸¾æ–¹å‘å†™æ³•
 	enum Direction {
 		L, LU, U, RU, R, RD, D, LD, STOP
 	};
 
 	private Direction dir = Direction.STOP;
 
-	// Ã¶¾Ù½áÊø£¬²¢ÇÒÄ¬ÈÏÊÇstop
+	// æšä¸¾ç»“æŸï¼Œå¹¶ä¸”é»˜è®¤æ˜¯stop
 	public Tank(int x, int y) {
 
 		this.x = x;
@@ -68,7 +68,7 @@ public class Tank {
 
 	public void keyPress(KeyEvent e) {
 		int key = e.getKeyCode();
-		// µ÷¼üÅÌTank·½Ïò
+		// è°ƒé”®ç›˜Tankæ–¹å‘
 		switch (key) {
 		case KeyEvent.VK_LEFT:
 			bL = true;
@@ -88,10 +88,10 @@ public class Tank {
 	};
 
 	/**
-	 * ÕâÀïÊÇÓÃÃ¶¾ÙµÄdirection£¬È»ºóÍ¨¹ı²¼¶ûÖµÅĞ¶Ï·½Ïò£¬×îºóÌí¼Óµ½ÉÏÃæ locateDirection();
+	 * è¿™é‡Œæ˜¯ç”¨æšä¸¾çš„directionï¼Œç„¶åé€šè¿‡å¸ƒå°”å€¼åˆ¤æ–­æ–¹å‘ï¼Œæœ€åæ·»åŠ åˆ°ä¸Šé¢ locateDirection();
 	 */
 	void locateDirection() {
-		// ¼ÓelseµÄÄ¿µÄÊÇÈç¹û²»¼Ó if»¹µÃÍùÏÂ×ß£¨¼ÌĞø×ßÏÂÒ»¸öif£©£¬¼ÓÉÏÖ®ºó¾Í×ßÒ»¸öif
+		// åŠ elseçš„ç›®çš„æ˜¯å¦‚æœä¸åŠ  ifè¿˜å¾—å¾€ä¸‹èµ°ï¼ˆç»§ç»­èµ°ä¸‹ä¸€ä¸ªifï¼‰ï¼ŒåŠ ä¸Šä¹‹åå°±èµ°ä¸€ä¸ªif
 		if (bL && !bU && !bR && !bD)
 			dir = Direction.L;
 		else if (bL && bU && !bR && !bD)
@@ -114,7 +114,7 @@ public class Tank {
 
 	public void keyRelease(KeyEvent e) {
 		int key = e.getKeyCode();
-		// µ÷¼üÅÌTank·½Ïò
+		// è°ƒé”®ç›˜Tankæ–¹å‘
 		switch (key) {
 		case KeyEvent.VK_LEFT:
 			bL = false;
@@ -133,7 +133,7 @@ public class Tank {
 		/*
 		 * if (!bL && !bU && !bR && !bD) dir = Direction.STOP;
 		 */
-		// Õâ¸ö¿ÉÒÔÓÃÉÏÃæµÄ´úÂë±íÊ¾ Èç¹ûÌ§Æğ¼üÅÌ ¾Í stop£»»òÕßÖ±½ÓÓÃÏÂÃæµÄ´úÂë ¼ò½à£»»òÕß²»ÓÃÕâ¸ö´úÂë¾ÍÊÇ¸úÌ°³ÔÉßÒ»ÑùËæÒâ¶¯¡£
+		// è¿™ä¸ªå¯ä»¥ç”¨ä¸Šé¢çš„ä»£ç è¡¨ç¤º å¦‚æœæŠ¬èµ·é”®ç›˜ å°± stopï¼›æˆ–è€…ç›´æ¥ç”¨ä¸‹é¢çš„ä»£ç  ç®€æ´ï¼›æˆ–è€…ä¸ç”¨è¿™ä¸ªä»£ç å°±æ˜¯è·Ÿè´ªåƒè›‡ä¸€æ ·éšæ„åŠ¨ã€‚
 		locateDirection();
 	}
 }

@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankClient extends Frame {
-	// ´úÂëÖØ¹¹ ¸üÈİÒ×À©Õ¹£¬°Ñ¶¨ÒåÎª³£Á¿
+	// ä»£ç é‡æ„ æ›´å®¹æ˜“æ‰©å±•ï¼ŒæŠŠå®šä¹‰ä¸ºå¸¸é‡
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 
@@ -23,7 +23,7 @@ public class TankClient extends Frame {
 	}
 
 	/**
-	 * Ë«»º³å ÕâÀïÊÇ×ö±³¾°²¼ ·ÀÖ¹ÉÁÑÛ Ëû»¹Ã»³öÀ´£¬¾ÍÈÃË¢ĞÂ³öÀ´ÁË
+	 * åŒç¼“å†² è¿™é‡Œæ˜¯åšèƒŒæ™¯å¸ƒ é˜²æ­¢é—ªçœ¼ ä»–è¿˜æ²¡å‡ºæ¥ï¼Œå°±è®©åˆ·æ–°å‡ºæ¥äº†
 	 */
 	public void update(Graphics g) {
 		if (offScreenImage == null) {
@@ -45,15 +45,15 @@ public class TankClient extends Frame {
 		this.setBackground(Color.GREEN);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
-			// Õâ¸öÊÇ¿ÉÒÔ¹Ø±Õ´°¿Ú
+			// è¿™ä¸ªæ˜¯å¯ä»¥å…³é—­çª—å£
 			public void windowClosing(WindowEvent e) {
 				// TODO Auto-generated method stub
 				System.exit(0);
 			}
 		});
-		// Õâ¸öÊÇ²»ÔÊĞí·Å´ó
+		// è¿™ä¸ªæ˜¯ä¸å…è®¸æ”¾å¤§
 		this.setResizable(false);
-		// Ìí¼Ó¼üÅÌ¼àÌı
+		// æ·»åŠ é”®ç›˜ç›‘å¬
 		this.addKeyListener(new KeyMonitor());
 		setVisible(true);
 		new Thread(new PaintThread()).start();
