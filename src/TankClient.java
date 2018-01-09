@@ -7,19 +7,25 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankClient extends Frame {
 	// 代码重构 更容易扩展，把定义为常量
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-
-	Tank myTank = new Tank(50, 50);
+	// 这里的 this也非常巧妙，直接引用当前的 TankClient
+	Tank myTank = new Tank(50, 50, this);
 	Image offScreenImage = null;
-	Missile m = new Missile(50, 50, Tank.Direction.D);
 
+	List<Missile> missiles = new ArrayList<Missile>();
+//巧妙的构思，这里用一个容器把子弹储存起来
 	public void paint(Graphics g) {
 		myTank.draw(g);
-		m.draw(g);
+		for(int i=0;i<missiles.size();i++){
+			Missile m = missiles.get(i);
+			m.draw(g);
+		}
 	}
 
 	/**

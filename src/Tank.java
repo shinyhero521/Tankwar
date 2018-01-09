@@ -6,6 +6,10 @@ import java.awt.event.KeyEvent;
 public class Tank {
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
+
+	// 定义坦克高度，宽
+	public static final int WIDTH = 30;
+	public static final int HEIGHT = 30;
 	private int x, y;
 	private boolean bL = false, bR = false, bU = false, bD = false;
 
@@ -15,6 +19,8 @@ public class Tank {
 	};
 
 	private Direction dir = Direction.STOP;
+	private Direction ptDir = Direction.D;
+	TankClient tc;
 
 	// 枚举结束，并且默认是stop
 	public Tank(int x, int y) {
@@ -23,12 +29,50 @@ public class Tank {
 		this.y = y;
 	}
 
+	/** 持有对方的引用
+	 *  这里比较牛逼，TankClient tc;  ##持有对方的引用##;这里创一个 tc ，
+	 *  然后在TankClient里   Tank myTank = new Tank(50, 50,this);
+	 *  太厉害了
+	 */
+	
+	public Tank(int x, int y, TankClient tc) {
+		this(x, y);
+		this.tc = tc;
+	}
+
 	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.cyan);
-		g.fillOval(x, y, 30, 30);
+		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		move();
+		//这里是根据炮筒的方向画出的线
+		switch(ptDir) {
+		case L:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y + Tank.HEIGHT/2);
+			break;
+		case LU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y);
+			break;
+		case U:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y);
+			break;
+		case RU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y);
+			break;
+		case R:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT/2);
+			break;
+		case RD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT);
+			break;
+		case D:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT);
+			break;
+		case LD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y + Tank.HEIGHT);
+			break;
+		}
 	};
 
 	void move() {
@@ -64,12 +108,16 @@ public class Tank {
 		case STOP:
 			break;
 		}
+		if (this.dir != Direction.STOP){
+			this.ptDir = this.dir;
+		}
 	}
 
 	public void keyPress(KeyEvent e) {
 		int key = e.getKeyCode();
 		// 调键盘Tank方向
 		switch (key) {
+		
 		case KeyEvent.VK_LEFT:
 			bL = true;
 			break;
@@ -86,6 +134,17 @@ public class Tank {
 		}
 		locateDirection();
 	};
+
+	// 子弹打的动作
+	public void  fire() {
+		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2;
+		int y = this.y + Tank.HEIGHT/2- Missile.HEIGHT/2 ;
+		//这里ptDir 是用了 子弹是坦克的 所以由坦克管理，子弹的方向不在missile类里，在坦克类里。
+		
+		Missile m = new Missile(x, y, ptDir);
+		tc.missiles.add(m);
+		
+	}
 
 	/**
 	 * 这里是用枚举的direction，然后通过布尔值判断方向，最后添加到上面 locateDirection();
@@ -116,6 +175,9 @@ public class Tank {
 		int key = e.getKeyCode();
 		// 调键盘Tank方向
 		switch (key) {
+		case KeyEvent.VK_CONTROL:
+			 fire();
+			break;
 		case KeyEvent.VK_LEFT:
 			bL = false;
 			break;
