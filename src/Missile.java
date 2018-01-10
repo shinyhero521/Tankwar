@@ -5,8 +5,12 @@ public class Missile {
 
 	private static final int XSPEED = 10;
 	private static final int YSPEED = 10;
+	private boolean bLive = true;
 	
-	// 定义Missile高度，宽
+
+	
+
+		// 定义Missile高度，宽
 		public static final int WIDTH = 10;
 		public static final int HEIGHT = 10;
 	int x, y;
@@ -18,7 +22,7 @@ public class Missile {
 		this.y = y;
 		this.dir = dir;
 	}
-
+	
 	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.BLACK);
@@ -60,5 +64,11 @@ public class Missile {
 		case STOP:
 			break;
 		}
+		if(x<0||y<0||x>TankClient.GAME_WIDTH||y>TankClient.GAME_HEIGHT){
+			bLive = false;
+		}
+	}
+	public boolean isbLive() {
+		return bLive;
 	}
 }

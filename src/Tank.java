@@ -111,6 +111,11 @@ public class Tank {
 		if (this.dir != Direction.STOP){
 			this.ptDir = this.dir;
 		}
+		//限制坦克别走出框
+		if(x<0){x=0;}
+		if(y<30){y=30;}
+		if(y+Tank.HEIGHT>TankClient.GAME_HEIGHT){y=TankClient.GAME_HEIGHT-Tank.HEIGHT;}
+		if(x+Tank.WIDTH>TankClient.GAME_WIDTH){x=TankClient.GAME_WIDTH-Tank.WIDTH;}
 	}
 
 	public void keyPress(KeyEvent e) {
