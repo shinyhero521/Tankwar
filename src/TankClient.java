@@ -19,16 +19,17 @@ public class TankClient extends Frame {
 	Image offScreenImage = null;
 
 	List<Missile> missiles = new ArrayList<Missile>();
-//巧妙的构思，这里用一个容器把子弹储存起来
+
+	// 巧妙的构思，这里用一个容器把子弹储存起来
 	public void paint(Graphics g) {
-		g.drawString("炮弹数"+missiles.size(), 10, 50);
+		g.drawString("炮弹数" + missiles.size(), 10, 50);
 		myTank.draw(g);
-		for(int i=0;i<missiles.size();i++){
+		for (int i = 0; i < missiles.size(); i++) {
 			Missile m = missiles.get(i);
-			if(!m.isbLive()){
+			if (!m.isbLive()) {
 				missiles.remove(m);
-			}else
-			m.draw(g);
+			} else
+				m.draw(g);
 		}
 	}
 
@@ -70,7 +71,7 @@ public class TankClient extends Frame {
 	}
 
 	public static void main(String[] args) {
- 		TankClient tc = new TankClient();
+		TankClient tc = new TankClient();
 		tc.lanchFrame();
 	}
 
