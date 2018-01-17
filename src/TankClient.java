@@ -20,6 +20,7 @@ public class TankClient extends Frame {
 	Image offScreenImage = null;
 
 	List<Missile> missiles = new ArrayList<Missile>();
+	List<Explode> explodes = new ArrayList<Explode>();
 
 	// 巧妙的构思，这里用一个容器把子弹储存起来
 	public void paint(Graphics g) {
@@ -33,6 +34,10 @@ public class TankClient extends Frame {
 			} else
 				m.draw(g);
 				m.hitTank(enemyTank);
+		}
+		for(int i =0; i<explodes.size();i++){
+			Explode e =explodes.get(i);
+			e.draw(g);
 		}
 	}
 

@@ -1,7 +1,5 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 
 //面向对象的思维
 public class Tank {
@@ -176,8 +174,9 @@ public class Tank {
 		int y = this.y + Tank.HEIGHT / 2 - Missile.HEIGHT / 2;
 		// 这里ptDir 是用了 子弹是坦克的 所以由坦克管理，子弹的方向不在missile类里，在坦克类里。
 
-		Missile m = new Missile(x, y, ptDir);
+		Missile m = new Missile(x, y, ptDir,this.tc);
 		tc.missiles.add(m);
+		
 
 	}
 

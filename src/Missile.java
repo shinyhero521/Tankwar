@@ -2,13 +2,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 
 public class Missile {
 
 	private static final int XSPEED = 10;
 	private static final int YSPEED = 10;
 	private boolean bLive = true;
+	private TankClient tc;
 
 	// 定义Missile高度，宽
 	public static final int WIDTH = 10;
@@ -21,6 +22,11 @@ public class Missile {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+	}
+	public Missile(int x, int y, Tank.Direction dir,TankClient tc) {
+
+		this(x, y, dir);
+		this.tc = tc;
 	}
 
 	public void draw(Graphics g) {
@@ -84,7 +90,10 @@ public class Missile {
 		if (this.getRect().intersects(t.getRect())&& t.isLive()) {
 			t.setLive(false);
 			//这里自创的当子弹击中坦克，然后让子弹bLive = false
+			
 			this.bLive=false;
+			Explode e = new Explode(x, y, tc);
+			tc.explodes.add(e);
 			return true;
 		}
 		return false;
